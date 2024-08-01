@@ -7,6 +7,7 @@ public class LetterCounter {
     List<String> reportList = new ArrayList<>();
 
     public LetterCounter() {
+        //empty method for testing purposes
     }
 
     // for each letter in the string
@@ -49,8 +50,16 @@ public class LetterCounter {
         return 0;
     }
 
+    // take the input and update the map
     public void countOneLetter(Character inputLetter) {
-        throw new RuntimeException("Not implemented");
+        if (isAlphabet(inputLetter)){
+            char lowerCaseChar = Character.toLowerCase(inputLetter);
+            if (countMap.containsKey(lowerCaseChar)) {
+                countMap.put(lowerCaseChar, countMap.get(lowerCaseChar) + 1);
+            } else {
+                countMap.put(lowerCaseChar, 1);
+            }
+        }
     }
 
     private boolean isAlphabet(char letter) {
