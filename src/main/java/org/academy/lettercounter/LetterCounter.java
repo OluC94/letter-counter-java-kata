@@ -19,12 +19,8 @@ public class LetterCounter {
             if (!isAlphabet(c)){
                 continue;
             }
-            Character lowerCaseChar = Character.toLowerCase(c);
-            if (countMap.containsKey(lowerCaseChar)) {
-                countMap.put(lowerCaseChar, countMap.get(lowerCaseChar) + 1);
-            } else {
-                countMap.put(lowerCaseChar, 1);
-            }
+            char lowerCaseChar = Character.toLowerCase(c);
+            updateMapWithLetter(lowerCaseChar);
 
         }
     }
@@ -54,16 +50,20 @@ public class LetterCounter {
     public void countOneLetter(Character inputLetter) {
         if (isAlphabet(inputLetter)){
             char lowerCaseChar = Character.toLowerCase(inputLetter);
-            if (countMap.containsKey(lowerCaseChar)) {
-                countMap.put(lowerCaseChar, countMap.get(lowerCaseChar) + 1);
-            } else {
-                countMap.put(lowerCaseChar, 1);
-            }
+            updateMapWithLetter(lowerCaseChar);
         }
     }
 
     private boolean isAlphabet(char letter) {
         return Character.isLetter(letter);
+    }
+
+    private void updateMapWithLetter(char letter) {
+        if (countMap.containsKey(letter)) {
+            countMap.put(letter, countMap.get(letter) + 1);
+        } else {
+            countMap.put(letter, 1);
+        }
     }
 
 
