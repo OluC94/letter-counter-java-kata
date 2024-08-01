@@ -37,8 +37,16 @@ public class LetterCounter {
         return reportList;
     }
 
+    // take a letter, return the value for the corresponding map key
     public int getCountForLetter(char letter) {
-        throw new RuntimeException("Not implemented");
+        if (!isAlphabet(letter)) {
+            return 0;
+        }
+        char lowerCaseChar = Character.toLowerCase(letter);
+        if (countMap.containsKey(lowerCaseChar)) {
+            return countMap.get(lowerCaseChar);
+        }
+        return 0;
     }
 
     public void countOneLetter(Character inputLetter) {
