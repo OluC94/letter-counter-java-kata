@@ -1,11 +1,10 @@
 package org.academy.lettercounter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LetterCounter {
     Map<Character, Integer> countMap = new HashMap<>();
+    List<String> reportList = new ArrayList<>();
 
     public LetterCounter() {
     }
@@ -19,18 +18,23 @@ public class LetterCounter {
             if (!isAlphabet(c)){
                 continue;
             }
-            if (countMap.containsKey(c)) {
-                countMap.put(c, countMap.get(c) + 1);
+            Character lowerCaseChar = Character.toLowerCase(c);
+            if (countMap.containsKey(lowerCaseChar)) {
+                countMap.put(lowerCaseChar, countMap.get(lowerCaseChar) + 1);
             } else {
-                countMap.put(c, 1);
+                countMap.put(lowerCaseChar, 1);
             }
 
         }
     }
 
-    // convert the Hash map to an array e.g ["key: value", e.t.c.]
+    // convert the Hash map to an array e.g ["key: value", e.t.c.] then sort alphabetically
     public List<String> generateReport() {
-        throw new RuntimeException("Not implemented");
+        for (Map.Entry<Character, Integer> entry : countMap.entrySet()) {
+            reportList.add(entry.getKey() + ": " + entry.getValue());
+        }
+        Collections.sort(reportList);
+        return reportList;
     }
 
     public int getCountForLetter(char letter) {
