@@ -4,7 +4,6 @@ import java.util.*;
 
 public class LetterCounter {
     // a set will maintain uniqueness, probably better than a map
-    // map.getOrDefault(c, 0) will return 0 if c is not found
     private final Map<Character, Integer> countMap;
     private final List<String> reportList;
 
@@ -15,7 +14,7 @@ public class LetterCounter {
 
     // for each letter in the string
     //      make sure it is an alphabetical character, if not, skip to the next iteration
-    //      check if there is a corresponding key in the HashMap map.containsKey(c)
+    //      if there is a corresponding key in the HashMap map.containsKey(c)
     // if not, add a new key, otherwise increment the key's value by one
     public void countAll(String word) {
         for (Character c : word.toCharArray()) {
@@ -27,16 +26,26 @@ public class LetterCounter {
         }
     }
 
-    // convert the Hash map to an array e.g ["key: value", e.t.c.] then sort alphabetically
+    // convert the Hash Map to an array e.g ["key: value", e.t.c.] then sort alphabetically
     public List<String> generateReport() {
+/*
+        for testing: Set<Map.Entry<Character, Integer>> entriesSet = countMap.entrySet();
+        System.out.println("Entries size: ");
+        System.out.println(entriesSet.size());
+        Map.Entry<Character, Integer> firstEntryInSet = (Map.Entry<Character, Integer>) entriesSet.toArray()[0];
+        System.out.println(firstEntryInSet.getValue());
+*/
+
         for (Map.Entry<Character, Integer> entry : countMap.entrySet()) {
-            reportList.add(entry.getKey() + ": " + entry.getValue());
+            String reportLine = entry.getKey() + ": " + entry.getValue();
+            reportList.add(reportLine);
         }
         Collections.sort(reportList);
         return reportList;
     }
 
     // take a letter, return the value for the corresponding map key
+    // getOrDefault will return 0 if c is not found
     public int getCountForLetter(Character letter) {
         if (!isAlphabet(letter)) {
             return 0;
