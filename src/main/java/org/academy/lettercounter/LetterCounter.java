@@ -3,11 +3,14 @@ package org.academy.lettercounter;
 import java.util.*;
 
 public class LetterCounter {
-    Map<Character, Integer> countMap = new HashMap<>();
-    List<String> reportList = new ArrayList<>();
+    // a set will maintain uniqueness, probably better than a map
+    // map.getOrDefault(c, 0) will return 0 if c is not found
+    private final Map<Character, Integer> countMap;
+    private final List<String> reportList;
 
     public LetterCounter() {
-        //empty method for testing purposes
+        countMap = new HashMap<>();
+        reportList = new ArrayList<>();
     }
 
     // for each letter in the string
@@ -15,13 +18,12 @@ public class LetterCounter {
     //      check if there is a corresponding key in the HashMap map.containsKey(c)
     // if not, add a new key, otherwise increment the key's value by one
     public void countAll(String word) {
-        for (char c : word.toCharArray()) {
+        for (Character c : word.toCharArray()) {
             if (!isAlphabet(c)){
                 continue;
             }
-            char lowerCaseChar = Character.toLowerCase(c);
+            Character lowerCaseChar = Character.toLowerCase(c);
             updateMapWithLetter(lowerCaseChar);
-
         }
     }
 
@@ -35,30 +37,28 @@ public class LetterCounter {
     }
 
     // take a letter, return the value for the corresponding map key
-    public int getCountForLetter(char letter) {
+    public int getCountForLetter(Character letter) {
         if (!isAlphabet(letter)) {
             return 0;
         }
-        char lowerCaseChar = Character.toLowerCase(letter);
-        if (countMap.containsKey(lowerCaseChar)) {
-            return countMap.get(lowerCaseChar);
-        }
-        return 0;
+
+        Character lowerCaseChar = Character.toLowerCase(letter);
+        return countMap.getOrDefault(lowerCaseChar, 0);
     }
 
     // take the input and update the map
     public void countOneLetter(Character inputLetter) {
         if (isAlphabet(inputLetter)){
-            char lowerCaseChar = Character.toLowerCase(inputLetter);
+            Character lowerCaseChar = Character.toLowerCase(inputLetter);
             updateMapWithLetter(lowerCaseChar);
         }
     }
 
-    private boolean isAlphabet(char letter) {
+    private boolean isAlphabet(Character letter) {
         return Character.isLetter(letter);
     }
 
-    private void updateMapWithLetter(char letter) {
+    private void updateMapWithLetter(Character letter) {
         if (countMap.containsKey(letter)) {
             countMap.put(letter, countMap.get(letter) + 1);
         } else {
